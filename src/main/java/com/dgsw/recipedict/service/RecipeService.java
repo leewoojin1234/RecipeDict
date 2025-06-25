@@ -40,4 +40,23 @@ public class RecipeService {
         }
         return false;
     }
+
+    public RecipeDTO getRecipe(long recipeId) {
+        Optional<RecipeEntity> recipeEntity = recipeRepository.findById(recipeId);
+        if (recipeEntity.isPresent()) {
+            RecipeEntity recipe = recipeEntity.get();
+
+            RecipeDTO recipeDTO = new RecipeDTO();
+
+            recipeDTO.setId(recipe.getId());
+            recipeDTO.setTitle(recipe.getTitle());
+            recipeDTO.setDescription(recipe.getDescription());
+            recipeDTO.setIngredients(recipe.getIngredients());
+//            recipeDTO.setSteps(recipe.getSteps());
+            recipeDTO.setImageUrl(recipe.getImageUrl());
+
+            return recipeDTO;
+        }
+        return null;
+    }
 }
