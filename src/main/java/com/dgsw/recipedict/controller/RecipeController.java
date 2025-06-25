@@ -19,6 +19,12 @@ public class RecipeController {
 
     @Autowired
     private RecipeService recipeService;
+    @PostMapping
+    public ResponseDTO create(@RequestBody @Valid RecipeDTO dto) {
+        log.info("레시피 등록 요청: {}", dto.getTitle());
+        recipeService.create(dto);
+        return new ResponseDTO("created");
+    }
 
     @PutMapping("/recipe")
     public ResponseDTO update(@RequestBody @Valid RecipeDTO dto) {
