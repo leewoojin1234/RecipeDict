@@ -33,4 +33,14 @@ public class RecipeController {
         boolean deleted = recipeService.deleteRecipe(id);
         return new ResponseDTO(deleted ? "deleted" : "not found");
     }
+
+    @GetMapping("/recipeCards")
+    public List<RecipeDTO> GetRecipeCards(){
+        return recipeService.getRecipeCards();
+    }
+
+    @GetMapping("/getRecipeDetails")
+    public RecipeDTO GetRecipeDetails(long recipeId){
+        return recipeService.getRecipeDetails(recipeId);
+    }
 }
