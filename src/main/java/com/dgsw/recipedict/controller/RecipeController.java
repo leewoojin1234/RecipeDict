@@ -13,6 +13,11 @@ import java.util.List;
 public class RecipeController {
     private final RecipeService recipeService;
 
+    @PutMapping("/{id}")
+    public RecipeDTO update(@PathVariable Long id, @RequestBody RecipeDTO dto) {
+        return recipeService.update(id, dto);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
 
