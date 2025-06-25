@@ -6,6 +6,7 @@ import com.dgsw.recipedict.service.RecipeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,9 @@ import java.util.List;
 @RequestMapping("/recipes")
 @RequiredArgsConstructor
 public class RecipeController {
-    private final RecipeService recipeService;
+
+    @Autowired
+    private RecipeService recipeService;
 
     @PutMapping("/recipe")
     public ResponseDTO update(@RequestBody @Valid RecipeDTO dto) {
