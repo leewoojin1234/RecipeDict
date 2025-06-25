@@ -4,41 +4,40 @@ import com.dgsw.recipedict.dto.RecipeDTO;
 import com.dgsw.recipedict.entity.RecipeEntity;
 import com.dgsw.recipedict.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class RecipeService {
-    private final RecipeRepository recipeRepository;
 
-    public RecipeDTO update(Long id, RecipeDTO dto) {
-        RecipeEntity entity = recipeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("레시피 없음"));
+    @Autowired
+    private RecipeRepository recipeRepository;
 
-        entity.setTitle(dto.getTitle());
-        entity.setDescription(dto.getDescription());
-        entity.setIngredients(dto.getIngredients());
-        entity.setSteps(dto.getSteps());
-        entity.setImageUrl(dto.getImageUrl());
-
-        return toDTO(recipeRepository.save(entity));
+    public boolean updateRecipe(RecipeDTO dto) {
+        Optional<RecipeEntity> optional = recipeRepository.findById(dto.getId());
+        if (optional.isPresent()) {
+            RecipeEntity entity = optional.get();
+            entity.setTitle(dto.getTitle());
+            entity.setDescription(dto.getDescription());
+            entity.setIngredients(dto.getIngredients());
+            entity.setSteps(dto.getSteps());
+            entity.setImageUrl(dto.getImageUrl());
+            recipeRepository.save(entity);
+            return true;
+        }
+        return false;
     }
 
-    public void delete(Long id) {
-        recipeRepository.deleteById(id);
-    }
-
-    private RecipeDTO toDTO(RecipeEntity entity) {
-        return RecipeDTO.builder()
-                .id(entity.getId())
-                .title(entity.getTitle())
-                .description(entity.getDescription())
-                .ingredients(entity.getIngredients())
-                .steps(entity.getSteps())
-                .imageUrl(entity.getImageUrl())
-                .build();
+    public boolean deleteRecipe(Long id) {
+        if (recipeRepository.existsById(id)) {
+            recipeRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
