@@ -61,17 +61,9 @@ public class RecipeService {
     }
 
     public List<RecipeDTO> getRecipeCards() {
-        long i = 1;
         List<RecipeDTO> recipeCards = new ArrayList<>();
 
-        while (true){
-            Optional<RecipeEntity> recipeEntity = recipeRepository.findById(i);
-
-            if(recipeEntity.isPresent()){
-                break;
-            }
-
-            RecipeEntity recipe = recipeEntity.get();
+        for( RecipeEntity recipe : recipeRepository.findAll()){
             RecipeDTO recipeDTO = new RecipeDTO();
 
             recipeDTO.setId(recipe.getId());
@@ -101,6 +93,7 @@ public class RecipeService {
 
             return recipeDTO;
         }
+
         return null;
     }
 }
