@@ -11,4 +11,11 @@ import java.util.List;
 @RequestMapping("/recipes")
 @RequiredArgsConstructor
 public class RecipeController {
+    private final RecipeService recipeService;
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+
+        recipeService.delete(id);
+    }
 }

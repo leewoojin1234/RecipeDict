@@ -12,4 +12,9 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class RecipeService {
+    private final RecipeRepository recipeRepository;
+
+    public void delete(Long id) {
+        recipeRepository.deleteById(id);
+    }
 }
