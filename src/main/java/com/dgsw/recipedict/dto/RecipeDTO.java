@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class RecipeDTO {
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
     private String title;
     private String description;
