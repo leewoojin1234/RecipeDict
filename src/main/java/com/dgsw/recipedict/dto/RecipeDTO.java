@@ -1,5 +1,6 @@
 package com.dgsw.recipedict.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class RecipeDTO {
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
     private String title;
     private String description;
