@@ -17,13 +17,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecipeController {
 
-    @Autowired
     private RecipeService recipeService;
-    @PostMapping
-    public ResponseDTO create(@RequestBody @Valid RecipeDTO dto) {
+
+
+    @PostMapping("/recipes")
+    public ResponseDTO createRecipe(@RequestBody @Valid RecipeDTO dto) {
         log.info("레시피 등록 요청: {}", dto.getTitle());
-        recipeService.create(dto);
-        return new ResponseDTO("created");
+        boolean result = recipeService.create(dto);
+        return new ResponseDTO(result ? "created" : "등록 실패");
     }
 
     @PutMapping("/recipe")
@@ -48,5 +49,10 @@ public class RecipeController {
     @GetMapping("/getRecipeDetails")
     public RecipeDTO GetRecipeDetails(long recipeId){
         return recipeService.getRecipeDetails(recipeId);
+    }
+
+    @Autowired
+    public void setRecipeService(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 }

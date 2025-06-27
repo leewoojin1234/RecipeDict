@@ -1,7 +1,9 @@
 package com.dgsw.recipedict.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ControllerAdvice
 public class RecipeDTO {
     private Long id;
     private String title;
